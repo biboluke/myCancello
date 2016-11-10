@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Settings</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/css/settings.css">
+</head>
+<body>
+
+	<div class="conteiner">
+			<p><h2>Settings</h2></p>
+			<form name="home" action="/" method="post">
+			<input type="submit" name="home" value="Home">
+			</form>
+
+			{% if session.permessi %}
+			<!-- Super user settings-->
+			<div class="conteiner">	
+				<form name="adminSettings" action="/admin" method="post">
+				<p>
+					<input type="text"     name="username" id="username"  placeholder="Username" value={{username}} >
+					<input type="submit" name="usernameCheck" value="Check" formaction="/check">
+					{% for message in get_flashed_messages(category_filter=["new_username"]) %}
+						{{ message }}
+					{% endfor %}
+				</p>
+				<p>
+					<input type="password" name="password" id="password"  placeholder="Password" value={{password}} >
+					{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+						{{ message }}
+					{% endfor %}
+				</p>
+				<p>
+					<input type="password" name="passwordCheck" id="passwordCheck"  placeholder="Repeat Password">
+					{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+						{{ message }}
+					{% endfor %}
+				</p>
+				<p>
+					<input type="number" name="expiredate" placeholder="Hours">
+					{% for message in get_flashed_messages(category_filter=["expiredate"]) %}
+						{{ message }}
+					{% endfor %}
+					<br><input type="checkbox" name="noexpire">Infinity User
+				</p>
+				<p>
+					<input type="radio" name="permessi" value="user" checked >Regular User
+					<input type="radio" name="permessi" value="admin"        >Super User
+				</p>
+				<p>
+					<input type="radio" name="select" value="add"    checked   >Add
+					<input type="radio" name="select" value="delete"           >Delete
+					<input type="radio" name="select" value="update"           >Update					
+				</p>
+				<p>
+					<input type="submit" name="apply"      value="Apply">
+					<input type="submit" name="accountGen" value="Generate"  formaction="/generate">
+					{% for message in get_flashed_messages(category_filter=["generate"]) %}
+						{{ message }}
+					{% endfor %}
+				</p>
+				</form>
+			</div>
+		{% else %}
+		<!-- Regular user settings-->		
+			<form name="userSettings" action="/regular" method="post">
+				<p>
+					<strong>New username:</strong>
+					{% for message in get_flashed_messages(category_filter=["new_username"]) %}
+					{{ message }}
+					{% endfor %}
+					<br><input type="text" 	   name="newusername"	placeholder="New Username">
+				</p>
+				<p>
+					<strong>New password:</strong>
+					{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+					{{ message }}
+					{% endfor %}
+					<br><input type="password" name="newpassword"  placeholder="New Password">
+				</p>
+				<p>
+					<strong>Verify new password:</strong>
+					<br><input type="password" name="newpasswordCheck"  placeholder="Repeat Password">
+				</p>
+				<p>
+					<input type="submit"   name="change" 	value="Change">
+				</p>
+			</form>
+
+		{% endif %}	
+		{% if error %}
+			<p class="error"><strong>Error:</strong>{{ error }}</p>
+		{% endif %}
+		<form name="logout" action="/logout" method="post">
+			<input type="submit" name="logout" value="Logout">
+		</form>
+	</div>
+</body>
+
+</html>

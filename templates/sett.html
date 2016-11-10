@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ProvaMaterial</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<script src="./static/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+	<link rel="stylesheet" href="./static/material.min.css">
+	<style>
+		body {
+			background: url('../static/image/loginbackground.jpg')center / cover;
+	    	background-repeat: no-repeat;
+		}
+	</style>
+</head>
+<body style=" margin-left:auto;
+    margin-right:auto;">
+<!-- Simple header with fixed tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+	  <header class="mdl-layout__header">
+	    <div class="mdl-layout__header-row">
+	      <!-- Title -->
+	      <span class="mdl-layout-title">Settings</span>
+	    </div>
+	 {% if session.permessi %}
+	    <!-- Tabs -->
+	    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+	      <a href="#add" class="mdl-layout__tab {{add}}">Add</a>
+	      <a href="#remove" class="mdl-layout__tab {{remove}}">Remove</a>
+	      <a href="#update" class="mdl-layout__tab {{update}}">Update</a>
+	    </div>
+	  {% endif %}
+	  </header>
+
+   <div class="mdl-layout__drawer">
+		    <span class="mdl-layout-title">Settings</span>
+		    <nav class="mdl-navigation">
+	    	 <a class="mdl-navigation__link" href="{{ url_for('home') }}">Home</a>
+	         <a class="mdl-navigation__link" href="{{ url_for('logout') }}">Logout</a>
+		     <!-- Simple list -->
+		     <div id="p3" class="mdl-progress mdl-js-progress"></div>
+			<style>
+			.demo-list-item {
+			  width: 300px;
+			}
+			</style>
+			<div class="mdl-card">
+			  <div class="mdl-card__supporting-text">
+			  	<ul class="demo-list-item mdl-list">
+			  	<h6>Info</h6>
+				  {% for element in info_user %}
+				  <li class="mdl-list__item">
+				    <span class="mdl-list__item-primary-content">
+			    		{{ element }}
+				    </span>
+				  </li>
+				  {% endfor %}
+				  </ul>
+			  </div>
+			</div>
+				
+		    </nav>
+		  </div>
+{% if session.permessi %}
+<main class="mdl-layout__content">
+    <section class="mdl-layout__tab-panel {{add}}" id="add">
+      <div class="page-content">
+      	<center>
+	      	<div class="mdl-card">
+				  <div class="mdl-card__supporting-text" align="left">
+				   
+				  	<form name="add" action="/add" method="post">
+						<p>
+							 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="text" name="a_username" id="a_username" value="{{username}}">
+							    <label class="mdl-textfield__label" for="a_username">Username...</label>
+							 </div>
+							
+							{% for message in get_flashed_messages(category_filter=["new_username"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="password" name="a_password" id="a_password" value={{password}}>
+							    <label class="mdl-textfield__label" for="a_password">Password...</label>
+							</div>
+							{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="password" name="a_passwordCheck" id="a_passwordCheck" value={{password}}>
+							    <label class="mdl-textfield__label" for="a_passwordCheck">Repeat Password...</label>
+							</div>
+							{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p>
+							<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="a_expiredate" name="a_expiredate">
+							    <label class="mdl-textfield__label" for="a_expiredate">Expire in...</label>
+							    <span class="mdl-textfield__error">Input is not a number!</span>
+							 </div>
+							{% for message in get_flashed_messages(category_filter=["expiredate"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p style="display:block;">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="a_noexpire">
+							  <input type="checkbox" id="a_noexpire" name="a_noexpire" class="mdl-switch__input">
+							  <span class="mdl-switch__label">Infinity User</span>
+							</label>
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="a_permessi">
+							  <input type="checkbox" id="a_permessi" name="a_permessi" class="mdl-switch__input">
+							  <span class="mdl-switch__label">Super User</span>
+							</label>
+						</p>
+						<p align="center">
+							<button type="submit" name="accountGen" value="Generate"  formaction="/generate" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Generate
+							</button>
+							&nbsp;
+							&nbsp;
+							<button type="submit" name="check" value="a_Check" formaction="/check" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Check
+							</button>
+							&nbsp;
+							&nbsp;
+							<button type="submit" name="add" value="add" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Add
+							</button>
+							{% for message in get_flashed_messages(category_filter=["generate"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						</form>
+				  </div>
+		  </center>
+      </div>
+    </section>
+    
+
+    <section class="mdl-layout__tab-panel {{remove}}" id="remove">
+      <div class="page-content">
+      	<center>
+	      	<div class="mdl-card">
+				  <div class="mdl-card__supporting-text" align="left">
+				   
+				  	<form name="remove" action="/remove" method="post">
+						<p>
+							 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="text" name="r_username" id="r_username" value="{{username}}">
+							    <label class="mdl-textfield__label" for="r_username">Username...</label>
+							 </div>
+							
+							{% for message in get_flashed_messages(category_filter=["new_username"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p align="center">
+							<button type="submit" name="check" value="r_Check" formaction="/check" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Check
+							</button>
+							&nbsp;
+							&nbsp;
+							<button type="submit" name="remove" value="Remove" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Remove
+							</button>
+						</p>
+						</form>
+				  </div>
+		  </center>
+      </div>
+    </section>
+    
+
+    <section class="mdl-layout__tab-panel {{update}}" id="update">
+      <div class="page-content">
+      	<center>
+	      	<div class="mdl-card">
+				  <div class="mdl-card__supporting-text" align="left">
+				   
+				  	<form name="update" action="/update" method="post">
+						<p>
+							 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="text" name="u_username" id="u_username" value="{{username}}">
+							    <label class="mdl-textfield__label" for="u_username">Username...</label>
+							 </div>
+							 {% for message in get_flashed_messages(category_filter=["new_username"]) %}
+								{{ message }}
+							 {% endfor %}
+						</p>
+						<p>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="password" name="u_password" id="u_password" value={{password}}>
+							    <label class="mdl-textfield__label" for="u_password">Password...</label>
+							</div>
+							{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p>
+							<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+							    <input class="mdl-textfield__input" type="password" name="u_passwordCheck" id="u_passwordCheck" value={{password}}>
+							    <label class="mdl-textfield__label" for="u_passwordCheck">Repeat Password...</label>
+							</div>
+							{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p>
+							<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="u_expiredate" name="u_expiredate">
+							    <label class="mdl-textfield__label" for="u_expiredate">Expire in...</label>
+							    <span class="mdl-textfield__error">Input is not a number!</span>
+							 </div>
+							{% for message in get_flashed_messages(category_filter=["expiredate"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						<p style="display:block;">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="u_noexpire">
+							  <input type="checkbox" id="u_noexpire" name="u_noexpire" value="1" class="mdl-switch__input">
+							  <span class="mdl-switch__label">Infinity User</span>
+							</label>
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="u_permessi">
+							  <input type="checkbox" id="u_permessi" name="u_permessi" value="1" class="mdl-switch__input">
+							  <span class="mdl-switch__label">Super User</span>
+							</label>
+						</p>
+							{% for message in get_flashed_messages(category_filter=["new_username"]) %}
+								{{ message }}
+							{% endfor %}
+						<p align="center">
+							<button type="submit" name="u_check" value="u_check" formaction="/check" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Check
+							</button>
+							&nbsp;
+							&nbsp;
+							<button type="submit" name="update" value="Update" formaction="/update" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Update
+							</button>
+							
+							{% for message in get_flashed_messages(category_filter=["generate"]) %}
+								{{ message }}
+							{% endfor %}
+						</p>
+						</form>
+				  </div>
+		  </center>
+      </div>
+    </section>
+</main>
+
+
+{% else %}
+			<center>
+	      	<div class="mdl-card">
+				  <div class="mdl-card__supporting-text" align="left">
+				   	<form name="userSettings" action="/regular" method="post">
+							<p>
+								 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								    <input class="mdl-textfield__input" type="text" name="newusername" id="newusername" value="{{username}}">
+								    <label class="mdl-textfield__label" for="newusername">Username...</label>
+								 </div>
+								 {% for message in get_flashed_messages(category_filter=["new_username"]) %}
+									{{ message }}
+								 {% endfor %}
+							</p>
+							<p>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								    <input class="mdl-textfield__input" type="password" name="newpassword" id="newpassword" value={{password}}>
+								    <label class="mdl-textfield__label" for="newassword">Password...</label>
+								</div>
+								{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+									{{ message }}
+								{% endfor %}
+							</p>
+							<p>
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								    <input class="mdl-textfield__input" type="password" name="newpasswordCheck" id="newpasswordCheck" value={{password}}>
+								    <label class="mdl-textfield__label" for="newpasswordCheck">Repeat Password...</label>
+								</div>
+								{% for message in get_flashed_messages(category_filter=["new_password"]) %}
+									{{ message }}
+								{% endfor %}
+							</p>
+							<button type="submit" name="update" value="Update" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							  Update
+							</button>
+								{% for message in get_flashed_messages(category_filter=["info"]) %}
+									{{ message }}
+								{% endfor %}
+					</form>
+				  </div>
+		  </center>
+{% endif %}
+
+</div>
+
+</body>
+</html>

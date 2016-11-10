@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ProvaMaterial</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<script src="./static/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="./static/material.min.css">
+	
+<style type="text/css">
+	.btn_cancello {
+		background : url('../static/image/car.ico') center / cover;
+	    background-size: 160px 160px;
+	    background-repeat: no-repeat;
+	    display:block;
+	    width:160px;
+	    height:160px;
+	    line-height:50px;
+	    border: 2px solid #f5f5f5;
+	    border-radius: 50%;
+	    color:#f5f5f5;
+	    text-align:center;
+	    text-decoration:none;
+	    box-shadow: 5px 5px 10px gray;
+	    font-size:20px;
+	    font-weight:bold;
+	    outline:none;
+	    position: relative;
+	    top: 30px
+		}	
+	.btn_cancello:active {
+    	box-shadow: 1px 1px 10px  gray;
+		}
+	.btn_pedonale {
+		background : url('../static/image/car.ico') center / cover;
+	    background-size: 160px 160px;
+	    background-repeat: no-repeat;
+	    display:block;
+	    width:160px;
+	    height:160px;
+	    line-height:50px;
+	    border: 2px solid #f5f5f5;
+	    border-radius: 50%;
+	    color:#f5f5f5;
+	    text-align:center;
+	    text-decoration:none;
+	    box-shadow: 5px 5px 10px gray;
+	    font-size:20px;
+	    font-weight:bold;
+	    outline:none;
+	    position: relative;
+	    top: 30px
+		}	
+	.btn_pedonale:active {
+    	
+    	box-shadow: 1px 1px 10px  gray;
+		}
+</style>
+</head>
+<body>
+	<!-- Uses a transparent header that draws on top of the layout's background -->
+	<style>
+	.mdl-layout {
+	  background: url('../static/image/loginbackground.jpg') center / cover;
+	}
+	.demo-layout-transparent .mdl-layout__header,
+	.demo-layout-transparent .mdl-layout__drawer-button {
+	  /* This background is dark, so we set text to white. Use 87% black instead if
+	     your background is light. */
+	  color: white;
+	}
+	</style>
+
+		<!-- Always shows a header, even in smaller screens. -->
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	  <header class="mdl-layout__header">
+	    <div class="mdl-layout__header-row">
+	      <!-- Title -->
+	      <span class="mdl-layout-title">Home</span>
+	      <!-- Add spacer, to align navigation to the right -->
+	      <div class="mdl-layout-spacer"></div>
+	      <!-- Navigation. We hide it in small screens. -->
+	      <nav class="mdl-navigation mdl-layout--large-screen-only">
+	        <a class="mdl-navigation__link" href="{{ url_for('settings') }}">Settings</a>
+	        <a class="mdl-navigation__link" href="{{ url_for('logout') }}">Logout</a>
+	      </nav>
+	    </div>
+	  </header>
+	  <div class="mdl-layout__drawer">
+	    <span class="mdl-layout-title">Title</span>
+	    <nav class="mdl-navigation">
+    	 <a class="mdl-navigation__link" href="{{ url_for('settings') }}">Settings</a>
+         <a class="mdl-navigation__link" href="{{ url_for('logout') }}">Logout</a>
+	    </nav>
+	  </div>
+	  <main class="mdl-layout__content">
+	    <div class="page-content">
+	   <center>
+	    	<form action="/open" method="post">
+	    		<button type="submit" class="btn_cancello" ></button><br>
+	    	</form>
+	    	<form action="/open" method="post">
+	    		<button type="submit" class="btn_pedonale"> </button>
+	    	</form>
+	   </center> 
+	    </div>
+	  </main>
+	</div>
+</body>
+</html>

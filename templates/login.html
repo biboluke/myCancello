@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ProvaMaterial</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<script src="./static/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="./static/material.min.css">
+	<style>
+		body {
+			background: url('../static/image/loginbackground.jpg')center / cover;
+	    	background-repeat: no-repeat;
+		}
+	</style>
+</head>
+<body>
+
+	<!-- Square card -->
+	<style>
+	.demo-card-square.mdl-card {
+	  width: 320px;
+	  height: 320px;
+	}
+	.demo-card-square > .mdl-card__title {
+	  color: #fff;
+	  background:
+	    url('../static/image/cancellologin.png') bottom right 15% no-repeat #46B6AC;
+	  background-size: 100px 80px;
+	}
+	</style>
+
+<center>
+	<br><br>
+	<form action="" method="post">
+		<div class="demo-card-square mdl-card mdl-shadow--2dp">
+		  <div class="mdl-card__title mdl-card--expand">
+		    <h2 class="mdl-card__title-text">Login</h2>
+		  </div>
+		  <div class="mdl-card__supporting-text">
+				<form>
+				  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="text" name="username" id="username">
+				    <label class="mdl-textfield__label" for="username">Username...</label>
+				  </div>
+				   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				    <input class="mdl-textfield__input" type="password" name="password" id="password">
+				    <label class="mdl-textfield__label" for="password">Password...</label>
+				  </div>
+				 {% if error %}
+				 	{{error}}
+				 {% endif %}
+				</form>
+
+		  </div>
+		  <div class="mdl-card__actions mdl-card--border">
+		    <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> 
+		      login
+		    </button>
+		  </div>
+		</div>
+	</form>
+</center>
+</body>
+</html>
